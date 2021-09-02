@@ -1188,6 +1188,22 @@ class ControllerCatalogProduct extends Controller {
             }
         }
 
+        if (isset($this->request->get['product_id'])) {
+            $data['added_labels'] = $this->model_extension_module_product_label_nik->getProductLabels($this->request->get['product_id']);
+
+            if (!empty($data['added_labels'])) {
+                foreach ($data['added_labels'] as $key => $label) {
+                    if ($label['image']) {
+                        $data['added_labels'][$key]['image'] = $this->model_tool_image->resize($label['image'], 25, 25);
+                    } else {
+                        $data['added_labels'][$key]['image'] = $this->model_tool_image->resize('no_image.png', 25, 25);
+                    }
+                }
+            }
+        } else {
+            $data['added_labels'] = array();
+        }
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');

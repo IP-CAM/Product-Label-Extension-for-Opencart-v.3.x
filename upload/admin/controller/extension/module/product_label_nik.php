@@ -34,10 +34,6 @@ class ControllerExtensionModuleProductLabelNik extends Controller {
                 $url .= '&order=' . $this->request->get['order'];
             }
 
-            if (isset($this->request->get['page'])) {
-                $url .= '&page=' . $this->request->get['page'];
-            }
-
             $this->response->redirect($this->url->link('extension/module/product_label_nik', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
 
@@ -52,7 +48,7 @@ class ControllerExtensionModuleProductLabelNik extends Controller {
         $this->load->model('extension/module/product_label_nik');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-            $this->model_extension_module_product_label_nik->editProductLabel($this->request->get['label_id'],$this->request->post);
+            $this->model_extension_module_product_label_nik->editProductLabel($this->request->get['label_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -64,10 +60,6 @@ class ControllerExtensionModuleProductLabelNik extends Controller {
 
             if (isset($this->request->get['order'])) {
                 $url .= '&order=' . $this->request->get['order'];
-            }
-
-            if (isset($this->request->get['page'])) {
-                $url .= '&page=' . $this->request->get['page'];
             }
 
             $this->response->redirect($this->url->link('extension/module/product_label_nik', 'user_token=' . $this->session->data['user_token'] . $url, true));
@@ -84,7 +76,7 @@ class ControllerExtensionModuleProductLabelNik extends Controller {
         $this->load->model('extension/module/product_label_nik');
 
         if (isset($this->request->get['label_id']) && $this->validate()) {
-            $this->model_extension_module_product_label_nik->deleteProductLabel($this->request->get['help_support_id']);
+            $this->model_extension_module_product_label_nik->deleteProductLabel($this->request->get['label_id']);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -96,10 +88,6 @@ class ControllerExtensionModuleProductLabelNik extends Controller {
 
             if (isset($this->request->get['order'])) {
                 $url .= '&order=' . $this->request->get['order'];
-            }
-
-            if (isset($this->request->get['page'])) {
-                $url .= '&page=' . $this->request->get['page'];
             }
 
             $this->response->redirect($this->url->link('extension/module/product_label_nik', 'user_token=' . $this->session->data['user_token'] . $url, true));

@@ -1135,8 +1135,9 @@
               <div class="col-sm-6">
                 <label class="control-label" for="input-points">{{ entry_not_added_labels }}</label>
                 <div class="labels-block not-added-labels-block">
-                  {% for label in labels if label.label_id not in product_label %}
-                    <div class="label-block-item">
+                  {% if labels %}
+                    {% for label in labels if label.label_id not in product_label %}
+                      <div class="label-block-item">
                       <span>
                         {% if label.text %}
                           {{ label.text }}
@@ -1144,16 +1145,20 @@
                           <img src="{{ label.image }}" alt="">
                         {% endif %}
                       </span>
-                      <button class="btn btn-success" type="button" data-label-id="{{ label.label_id }}"><i class="fa fa-plus"></i></button>
-                    </div>
-                  {% endfor %}
+                        <button class="btn btn-success" type="button" data-label-id="{{ label.label_id }}"><i class="fa fa-plus"></i></button>
+                      </div>
+                    {% endfor %}
+
+                  {% else %}
+                    <span>{{ text_no_labels }}</span>
+                  {% endif %}
                 </div>
               </div>
 
               <div class="col-sm-6">
                 <label class="control-label" for="input-points">{{ entry_added_labels }}</label>
                 <div class="labels-block added-labels-block">
-                  {% for label in labels if label.label_id in product_label %}
+                  {% for label in added_labels %}
                     <div class="label-block-item">
                       <span>
                         {% if label.text %}

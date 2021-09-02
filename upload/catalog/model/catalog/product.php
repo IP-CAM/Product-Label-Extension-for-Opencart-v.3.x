@@ -416,7 +416,7 @@ class ModelCatalogProduct extends Model {
     public function getProductLabels($product_id) {
         $product_data = array();
 
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_label pl LEFT JOIN " . DB_PREFIX . "label l ON (pl.label_id = l.label_id) WHERE pl.product_id = '" . (int)$product_id . "' AND l.status = '1'");
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_label pl LEFT JOIN " . DB_PREFIX . "label l ON (pl.label_id = l.label_id) WHERE pl.product_id = '" . (int)$product_id . "' AND l.status = '1' ORDER BY pl.product_label_id ASC");
 
         foreach ($query->rows as $result) {
             $product_data[$result['label_id']] = $this->getLabel($result['label_id']);

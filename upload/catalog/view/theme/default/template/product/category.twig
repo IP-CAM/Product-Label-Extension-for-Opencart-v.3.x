@@ -131,9 +131,10 @@
             <div class="image" style="position: relative;">
               <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></a>
               {% for label in product.labels %}
-                <span style="
-                              position: absolute;
-                              {% if label.font_size %}font-size: {{ label.font_size }}px;{% endif %}
+                {% if loop.index == '1' %}
+                  <span style="
+                      position: absolute;
+                  {% if label.font_size %}font-size: {{ label.font_size }}px;{% endif %}
                               {% if label.font_color %}color: {{ label.font_color }};{% endif %}
                               {% if label.bg_color %}background-color: {{ label.bg_color }};{% endif %}
                               {% if label.padding %}padding: {{ label.padding }};{% endif %}
@@ -143,14 +144,15 @@
                               {% if label.position_right %}right: {{ label.position_right }}{{ label.position_right_unit }};{% endif %}
                               {% if label.position_bottom %}bottom: {{ label.position_bottom }}{{ label.position_bottom_unit }};{% endif %}
                               {% if not label.position_left and not label.position_top and not label.position_right and not label.position_bottom %}left:0;top:0;{% endif %}
-                            "
-                >
+                      "
+                  >
                     {% if label.text %}
                       {{ label.text }}
                     {% else %}
                       <img src="{{ label.image }}" alt="">
                     {% endif %}
                 </span>
+                {% endif %}
               {% endfor %}
             </div>
             <div>

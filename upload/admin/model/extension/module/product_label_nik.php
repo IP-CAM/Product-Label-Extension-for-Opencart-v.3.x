@@ -103,6 +103,12 @@ class ModelExtensionModuleProductLabelNik extends Model {
         return $label_description_data;
     }
 
+    public function getLabelInfo($label_id) {
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "label l LEFT JOIN `" . DB_PREFIX . "label_description` ld ON (l.label_id = ld.label_id) WHERE ld.language_id = '" . (int)$this->config->get('config_language_id') . "' AND l.label_id = '" . (int)$label_id . "'");
+
+        return $query->row;
+    }
+
     public function getLabels($data = array()) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "label` l LEFT JOIN `" . DB_PREFIX . "label_description` ld ON (l.label_id = ld.label_id) WHERE ld.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -127,15 +133,15 @@ class ModelExtensionModuleProductLabelNik extends Model {
         return $query->rows;
     }
 
-    public function getTotalIps() {
-        $query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "fraud_ip`");
+    public function getProductLabels($product_id) {
+        $product_data = array();
 
-        return $query->row['total'];
-    }
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_label pl LEFT JOIN " . DB_PREFIX . "label l ON (pl.label_id = l.label_id) WHERE pl.product_id = '" . (int)$product_id . "' AND l.status = '1' ORDER BY pl.product_label_id ASC");
 
-    public function getTotalIpsByIp($ip) {
-        $query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "fraud_ip` WHERE ip = '" . $this->db->escape($ip) . "'");
+        foreach ($query->rows as $result) {
+            $product_data[$result['label_id']] = $this->getLabelInfo($result['label_id']);
+        }
 
-        return $query->row['total'];
+        return $product_data;
     }
 }
