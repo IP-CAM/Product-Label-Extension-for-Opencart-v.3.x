@@ -144,7 +144,8 @@
                     {% if label.position_top %}top: {{ label.position_top }}{{ label.position_top_unit }};{% endif %}
                     {% if label.position_right %}right: {{ label.position_right }}{{ label.position_right_unit }};{% endif %}
                     {% if label.position_bottom %}bottom: {{ label.position_bottom }}{{ label.position_bottom_unit }};{% endif %}
-                    {% if not label.position_left and not label.position_top and not label.position_right and not label.position_bottom %}left:0;top:0;{% endif %}
+                    {% if not label.position_left and not label.position_right %}left:0;{% endif %}
+                    {% if not label.position_top and not label.position_bottom %}top:0;{% endif %}
                   ">
                     {{ label.text }}
                   </span>
@@ -155,7 +156,8 @@
                     {% if label.position_top %}top: {{ label.position_top }}{{ label.position_top_unit }};{% endif %}
                     {% if label.position_right %}right: {{ label.position_right }}{{ label.position_right_unit }};{% endif %}
                     {% if label.position_bottom %}bottom: {{ label.position_bottom }}{{ label.position_bottom_unit }};{% endif %}
-                    {% if not label.position_left and not label.position_top and not label.position_right and not label.position_bottom %}left:0;top:0;{% endif %}
+                    {% if not label.position_left and not label.position_right %}left:0;{% endif %}
+                    {% if not label.position_top and not label.position_bottom %}top:0;{% endif %}
                   ">
                 {% endif %}
 
