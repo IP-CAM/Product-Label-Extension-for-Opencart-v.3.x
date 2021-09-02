@@ -42,6 +42,21 @@
                     {% endif %}
                   </div>
                 </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">{{ text_text_or_image }}</label>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-image">{{ entry_image }}</label>
+                  <div class="col-sm-10">
+                    <a href="" id="thumb-image{{ language.language_id }}" data-toggle="image" class="img-thumbnail mt-10">
+                      <img src="{{ label_description[language.language_id] ? label_description[language.language_id].thumb : img_placeholder }}" alt="" title="" data-placeholder="{{ img_placeholder }}"/>
+                    </a>
+                    {% if error_image[language.language_id] %}
+                      <div class="text-danger">{{ error_image[language.language_id] }}</div>
+                    {% endif %}
+                    <input type="hidden" name="label_description[{{ language.language_id }}][image]" value="{{ label_description[language.language_id] ? label_description[language.language_id].image }}" id="input-image{{ language.language_id }}"/>
+                  </div>
+                </div>
               </div>
             {% endfor %}
           </div>
@@ -49,18 +64,7 @@
       </div>
       <div class="panel panel-default">
         <div class="panel-body">
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-image">{{ entry_image }}</label>
-            <div class="col-sm-10">
-              <a href="" id="thumb-image1" data-toggle="image" class="img-thumbnail mt-10">
-                <img src="{{ thumb }}" alt="" title="" data-placeholder="{{ img_placeholder }}"/>
-              </a>
-              {% if error_image %}
-                <div class="text-danger">{{ error_image }}</div>
-              {% endif %}
-              <input type="hidden" name="image" value="{{ image }}" id="input-image1"/>
-            </div>
-          </div>
+          <h4>{{ text_text_settings }}</h4>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-font-size">{{ entry_font_size }}</label>
             <div class="col-sm-4">
@@ -90,6 +94,7 @@
               {{ help_padding }}
             </div>
           </div>
+          <h4>{{ text_text_and_image_settings }}</h4>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-position-left">{{ entry_position_left }}</label>
             <div class="col-sm-5">

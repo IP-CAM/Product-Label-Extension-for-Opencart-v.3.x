@@ -239,17 +239,15 @@ class ControllerExtensionModuleProductLabelNik extends Controller {
             $data['label_description'] = array();
         }
 
-        if (isset($this->request->post['image'])) {
-            $data['image'] = $this->request->post['image'];
-        } elseif (!empty($label_info)) {
-            $data['image'] = $label_info['image'];
-        } else {
-            $data['image'] = '';
-        }
-
         $this->load->model('tool/image');
 
-        $data['thumb'] = $data['image'] ? $this->model_tool_image->resize($data['image'], 100, 100) : $this->model_tool_image->resize('no_image.png', 100, 100);
+        foreach ($data['label_description'] as $language_id => $label_description) {
+            if ($label_description['image']) {
+                $data['label_description'][$language_id]['thumb'] = $this->model_tool_image->resize($label_description['image'], 100, 100);
+            } else {
+                $data['label_description'][$language_id]['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+            }
+        }
 
         $data['img_placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
@@ -394,9 +392,9 @@ class ControllerExtensionModuleProductLabelNik extends Controller {
         }
 
         foreach ($this->request->post['label_description'] as $language_id => $value) {
-            if ( ((utf8_strlen($value['text']) < 1) || (utf8_strlen($value['text']) > 255)) && (utf8_strlen($this->request->post['image']) < 1) ) {
+            if ( ((utf8_strlen($value['text']) < 1) || (utf8_strlen($value['text']) > 255)) && (utf8_strlen($value['image']) < 1) ) {
                 $this->error['text'][$language_id] = $this->language->get('error_text');
-                $this->error['image'] = $this->language->get('error_image');
+                $this->error['image'][$language_id] = $this->language->get('error_image');
             }
         }
 

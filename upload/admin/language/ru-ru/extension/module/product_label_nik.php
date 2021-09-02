@@ -10,6 +10,9 @@ $_['text_add_label']   = 'Добавить метку';
 $_['text_edit_label']  = 'Редактировать метку';
 $_['text_px']          = 'px';
 $_['text_percent']     = '%';
+$_['text_text_or_image'] = 'Или';
+$_['text_text_settings'] = 'Настройки текста';
+$_['text_text_and_image_settings'] = 'Настройки текста и изображения';
 
 // Entry
 $_['entry_text']       = 'Текст метки';

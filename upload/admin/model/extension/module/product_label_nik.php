@@ -4,12 +4,11 @@ class ModelExtensionModuleProductLabelNik extends Model {
         $this->db->query("
             CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "label` (
               `label_id` INT(11) NOT NULL AUTO_INCREMENT,
-              `image` VARCHAR(255) NOT NULL,
-              `font_size` INT(11) NOT NULL,
+              `font_size` VARCHAR(25) NOT NULL,
               `font_color` VARCHAR(25) NOT NULL,
               `bg_color` VARCHAR(25) NOT NULL,
               `padding` VARCHAR(100) NOT NULL,
-              `border_radius` INT(11) NOT NULL,
+              `border_radius` VARCHAR(25) NOT NULL,
               `position_left` VARCHAR(25) NOT NULL,
               `position_left_unit` VARCHAR(25) NOT NULL,
               `position_top` VARCHAR(25) NOT NULL,
@@ -29,6 +28,7 @@ class ModelExtensionModuleProductLabelNik extends Model {
               `label_id` INT(11) NOT NULL,
               `language_id` INT(11) NOT NULL,
               `text` VARCHAR(255) NOT NULL,
+              `image` VARCHAR(255) NOT NULL,
               PRIMARY KEY (`id`, `language_id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 		");
@@ -49,32 +49,24 @@ class ModelExtensionModuleProductLabelNik extends Model {
     }
 
     public function addProductLabel($data) {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "label` SET `font_size` = '" . (int)$data['font_size'] . "', `font_color` = '" . $this->db->escape($data['font_color']) . "', `bg_color` = '" . $this->db->escape($data['bg_color']) . "', `padding` = '" . $this->db->escape($data['padding']) . "', `border_radius` = '" . (int)$data['border_radius'] . "', `position_left` = '" . $this->db->escape($data['position_left']) . "', `position_left_unit` = '" . $this->db->escape($data['position_left_unit']) . "', `position_top` = '" . $this->db->escape($data['position_top']) . "', `position_top_unit` = '" . $this->db->escape($data['position_top_unit']) . "', `position_right` = '" . $this->db->escape($data['position_right']) . "', `position_right_unit` = '" . $this->db->escape($data['position_right_unit']) . "', `position_bottom` = '" . $this->db->escape($data['position_bottom']) . "', `position_bottom_unit` = '" . $this->db->escape($data['position_bottom_unit']) . "', `status` = '" . (int)$data['status'] . "', date_added = NOW()");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "label` SET `font_size` = '" . $this->db->escape($data['font_size']) . "', `font_color` = '" . $this->db->escape($data['font_color']) . "', `bg_color` = '" . $this->db->escape($data['bg_color']) . "', `padding` = '" . $this->db->escape($data['padding']) . "', `border_radius` = '" . $this->db->escape($data['border_radius']) . "', `position_left` = '" . $this->db->escape($data['position_left']) . "', `position_left_unit` = '" . $this->db->escape($data['position_left_unit']) . "', `position_top` = '" . $this->db->escape($data['position_top']) . "', `position_top_unit` = '" . $this->db->escape($data['position_top_unit']) . "', `position_right` = '" . $this->db->escape($data['position_right']) . "', `position_right_unit` = '" . $this->db->escape($data['position_right_unit']) . "', `position_bottom` = '" . $this->db->escape($data['position_bottom']) . "', `position_bottom_unit` = '" . $this->db->escape($data['position_bottom_unit']) . "', `status` = '" . (int)$data['status'] . "', date_added = NOW()");
 
         $label_id = $this->db->getLastId();
 
-        if (isset($data['image'])) {
-            $this->db->query("UPDATE " . DB_PREFIX . "label SET `image` = '" . $this->db->escape($data['image']) . "' WHERE label_id = '" . (int)$label_id . "'");
-        }
-
         foreach ($data['label_description'] as $language_id => $value) {
-            $this->db->query("INSERT INTO " . DB_PREFIX . "label_description SET label_id = '" . (int)$label_id . "', language_id = '" . (int)$language_id . "', `text` = '" . $this->db->escape($value['text']) . "'");
+            $this->db->query("INSERT INTO " . DB_PREFIX . "label_description SET label_id = '" . (int)$label_id . "', language_id = '" . (int)$language_id . "', `text` = '" . $this->db->escape($value['text']) . "', `image` = '" . $this->db->escape($value['image']) . "'");
         }
 
         return $label_id;
     }
 
     public function editProductLabel($label_id, $data) {
-        $this->db->query("UPDATE `" . DB_PREFIX . "label` SET `font_size` = '" . (int)$data['font_size'] . "', `font_color` = '" . $this->db->escape($data['font_color']) . "', `bg_color` = '" . $this->db->escape($data['bg_color']) . "', `padding` = '" . $this->db->escape($data['padding']) . "', `border_radius` = '" . (int)$data['border_radius'] . "', `position_left` = '" . $this->db->escape($data['position_left']) . "', `position_left_unit` = '" . $this->db->escape($data['position_left_unit']) . "', `position_top` = '" . $this->db->escape($data['position_top']) . "', `position_top_unit` = '" . $this->db->escape($data['position_top_unit']) . "', `position_right` = '" . $this->db->escape($data['position_right']) . "', `position_right_unit` = '" . $this->db->escape($data['position_right_unit']) . "', `position_bottom` = '" . $this->db->escape($data['position_bottom']) . "', `position_bottom_unit` = '" . $this->db->escape($data['position_bottom_unit']) . "', `status` = '" . (int)$data['status'] . "' WHERE `label_id` = '" . (int)$label_id . "'");
-
-        if (isset($data['image'])) {
-            $this->db->query("UPDATE " . DB_PREFIX . "label SET `image` = '" . $this->db->escape($data['image']) . "' WHERE label_id = '" . (int)$label_id . "'");
-        }
+        $this->db->query("UPDATE `" . DB_PREFIX . "label` SET `font_size` = '" . $this->db->escape($data['font_size']) . "', `font_color` = '" . $this->db->escape($data['font_color']) . "', `bg_color` = '" . $this->db->escape($data['bg_color']) . "', `padding` = '" . $this->db->escape($data['padding']) . "', `border_radius` = '" . $this->db->escape($data['border_radius']) . "', `position_left` = '" . $this->db->escape($data['position_left']) . "', `position_left_unit` = '" . $this->db->escape($data['position_left_unit']) . "', `position_top` = '" . $this->db->escape($data['position_top']) . "', `position_top_unit` = '" . $this->db->escape($data['position_top_unit']) . "', `position_right` = '" . $this->db->escape($data['position_right']) . "', `position_right_unit` = '" . $this->db->escape($data['position_right_unit']) . "', `position_bottom` = '" . $this->db->escape($data['position_bottom']) . "', `position_bottom_unit` = '" . $this->db->escape($data['position_bottom_unit']) . "', `status` = '" . (int)$data['status'] . "' WHERE `label_id` = '" . (int)$label_id . "'");
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "label_description WHERE label_id = '" . (int)$label_id . "'");
 
         foreach ($data['label_description'] as $language_id => $value) {
-            $this->db->query("INSERT INTO " . DB_PREFIX . "label_description SET label_id = '" . (int)$label_id . "', language_id = '" . (int)$language_id . "', `text` = '" . $this->db->escape($value['text']) . "'");
+            $this->db->query("INSERT INTO " . DB_PREFIX . "label_description SET label_id = '" . (int)$label_id . "', language_id = '" . (int)$language_id . "', `text` = '" . $this->db->escape($value['text']) . "', `image` = '" . $this->db->escape($value['image']) . "'");
         }
     }
 
@@ -96,7 +88,8 @@ class ModelExtensionModuleProductLabelNik extends Model {
 
         foreach ($query->rows as $result) {
             $label_description_data[$result['language_id']] = array(
-                'text' => $result['text'],
+                'text'  => $result['text'],
+                'image' => $result['image'],
             );
         }
 

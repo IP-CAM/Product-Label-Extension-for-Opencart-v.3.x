@@ -131,28 +131,34 @@
             <div class="image" style="position: relative;">
               <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></a>
               {% for label in product.labels %}
-                {% if loop.index == '1' %}
+
+                {% if label.text %}
                   <span style="
-                      position: absolute;
-                  {% if label.font_size %}font-size: {{ label.font_size }}px;{% endif %}
-                              {% if label.font_color %}color: {{ label.font_color }};{% endif %}
-                              {% if label.bg_color %}background-color: {{ label.bg_color }};{% endif %}
-                              {% if label.padding %}padding: {{ label.padding }};{% endif %}
-                              {% if label.border_radius %}border-radius: {{ label.border_radius }}px;{% endif %}
-                              {% if label.position_left %}left: {{ label.position_left }}{{ label.position_left_unit }};{% endif %}
-                              {% if label.position_top %}top: {{ label.position_top }}{{ label.position_top_unit }};{% endif %}
-                              {% if label.position_right %}right: {{ label.position_right }}{{ label.position_right_unit }};{% endif %}
-                              {% if label.position_bottom %}bottom: {{ label.position_bottom }}{{ label.position_bottom_unit }};{% endif %}
-                              {% if not label.position_left and not label.position_top and not label.position_right and not label.position_bottom %}left:0;top:0;{% endif %}
-                      "
-                  >
-                    {% if label.text %}
-                      {{ label.text }}
-                    {% else %}
-                      <img src="{{ label.image }}" alt="">
-                    {% endif %}
-                </span>
+                    position: absolute;
+                    {% if label.font_size %}font-size: {{ label.font_size }}px;{% endif %}
+                    {% if label.font_color %}color: {{ label.font_color }};{% endif %}
+                    {% if label.bg_color %}background-color: {{ label.bg_color }};{% endif %}
+                    {% if label.padding %}padding: {{ label.padding }};{% endif %}
+                    {% if label.border_radius %}border-radius: {{ label.border_radius }}px;{% endif %}
+                    {% if label.position_left %}left: {{ label.position_left }}{{ label.position_left_unit }};{% endif %}
+                    {% if label.position_top %}top: {{ label.position_top }}{{ label.position_top_unit }};{% endif %}
+                    {% if label.position_right %}right: {{ label.position_right }}{{ label.position_right_unit }};{% endif %}
+                    {% if label.position_bottom %}bottom: {{ label.position_bottom }}{{ label.position_bottom_unit }};{% endif %}
+                    {% if not label.position_left and not label.position_top and not label.position_right and not label.position_bottom %}left:0;top:0;{% endif %}
+                  ">
+                    {{ label.text }}
+                  </span>
+                {% else %}
+                  <img src="{{ label.image }}" alt="" style="
+                    position: absolute;
+                    {% if label.position_left %}left: {{ label.position_left }}{{ label.position_left_unit }};{% endif %}
+                    {% if label.position_top %}top: {{ label.position_top }}{{ label.position_top_unit }};{% endif %}
+                    {% if label.position_right %}right: {{ label.position_right }}{{ label.position_right_unit }};{% endif %}
+                    {% if label.position_bottom %}bottom: {{ label.position_bottom }}{{ label.position_bottom_unit }};{% endif %}
+                    {% if not label.position_left and not label.position_top and not label.position_right and not label.position_bottom %}left:0;top:0;{% endif %}
+                  ">
                 {% endif %}
+
               {% endfor %}
             </div>
             <div>

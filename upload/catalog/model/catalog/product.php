@@ -408,7 +408,7 @@ class ModelCatalogProduct extends Model {
 	}
 
 	public function getLabel($label_id) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "label l LEFT JOIN " . DB_PREFIX . "label_description ld ON (l.label_id = ld.label_id) WHERE l.label_id = '" . (int)$label_id . "'");
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "label l LEFT JOIN " . DB_PREFIX . "label_description ld ON (l.label_id = ld.label_id) WHERE l.label_id = '" . (int)$label_id . "' AND ld.language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
