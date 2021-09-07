@@ -105,6 +105,10 @@ class ModelExtensionModuleProductLabelNik extends Model {
     public function getLabels($data = array()) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "label` l LEFT JOIN `" . DB_PREFIX . "label_description` ld ON (l.label_id = ld.label_id) WHERE ld.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
+        if (isset($data['status']) && $data['status'] == 1) {
+            $sql .= " AND l.status = '1'";
+        }
+
         $sort_data = array(
             'ld.text',
         );

@@ -1176,7 +1176,11 @@ class ControllerCatalogProduct extends Controller {
 
 		$this->load->model('extension/module/product_label_nik');
 
-        $data['labels'] = $this->model_extension_module_product_label_nik->getLabels();
+		$filter_data = array(
+		    'status' => 1
+        );
+
+        $data['labels'] = $this->model_extension_module_product_label_nik->getLabels($filter_data);
 
         if (!empty($data['labels'])) {
             foreach ($data['labels'] as $key => $label) {
